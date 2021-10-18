@@ -44,6 +44,7 @@ class AuthorController extends Controller
         $author->email = $request->email;
         $author->no_hp = $request->no_hp;
         $author->save();
+        return $author;
     }
 
     /**
@@ -95,6 +96,6 @@ class AuthorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Author::find($id)->delete();
     }
 }

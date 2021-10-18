@@ -17,14 +17,29 @@ use App\Http\Controllers\AuthorController;
 |
 */
 
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
 Route::get('/me', [AuthController::class, 'me']);
 
-Route::get('/books', [BookController::class, 'index']);
-Route::post('/books', [BookController::class, 'store']);
-Route::get('/books/{id}', [BookController::class, 'show']);
-Route::put('/books/{id}', [BookController::class, 'update']);
+// Route::get('/books', [BookController::class, 'index']);
+// Route::post('/books', [BookController::class, 'store']);
+// Route::get('/books/{id}', [BookController::class, 'show']);
+// Route::put('/books/{id}', [BookController::class, 'update']);
+// Route::delete('books/{id}', [BookController::class, 'destroy']);
 
-Route::get('/authors', [AuthorController::class, 'index']);
-Route::post('/authors', [AuthorController::class, 'store']);
-Route::get('/authors/{id}', [AuthorController::class, 'show']);
-Route::put('/authors/{id}', [AuthorController::class, 'update']);
+// Route::get('/authors', [AuthorController::class, 'index']);
+// Route::post('/authors', [AuthorController::class, 'store']);
+// Route::get('/authors/{id}', [AuthorController::class, 'show']);
+// Route::put('/authors/{id}', [AuthorController::class, 'update']);
+// Route::delete('/authors/{id}', [AuthorController::class, 'destroy']);
+
+
+Route::resource('author', "\App\Http\Controllers\AuthorController")->except('edit', 'create')->middleware('auth:sanctum');
+Route::resource('books', "\App\Http\Controllers\BookController")->except('edit', 'create')->middleware('auth:sanctum');
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/me', [AuthController::class, 'me']);
+Route::post('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');

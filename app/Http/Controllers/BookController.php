@@ -43,6 +43,7 @@ class BookController extends Controller
         $book->publisher = $request->publisher;
         $book->date_of_issue = $request->date_of_issue;
         $book->save();
+        return $book;
     }
 
     /**
@@ -93,6 +94,6 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Book::find($id)->delete();
     }
 }
